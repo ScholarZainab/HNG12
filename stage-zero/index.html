@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+</head>
+<body>
+    <div class="profile-card">
+        <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/154/576/original/20250109_144416.jpg?1736606256" alt="Profile Picture" class="profile-picture" data-testid="profilePicture">
+        <h1 class="full-name" data-testid="fullName">Akinola Zainab Ayomide</h1>
+        <h2 class="job-title" data-testid="jobTitle">Web Developer</h2>
+          <p class="bio" data-testid="shortBio">I am a passionate web developer dedicated to both coding and design, crafting visually stunning and functional websites that elevate user experiences. With a keen eye for detail and strong problem-solving abilities, I strive to blend aesthetics with practicality, providing engaging and user-friendly web solutions.</p>
+        <p class="location" data-testid="currentLocation">📍 Lagos, Nigeria</p>
+        <p class="email" data-testid="emailAddress">📧 zainabakinola2010@gmail.com</p>
+        <div class="social-links" data-testid="socialLinks">
+            <a href="https://x.com/zainab297086931"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://github.com/ScholarZainab"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/zainab-akinola-655a43283/"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <p class="current-time" data-testid="currentTimeUTC">UTC Time: <span id="utc-time">Loading...</span></p>
+    </div>
+    
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
