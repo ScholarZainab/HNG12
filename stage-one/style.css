@@ -1,0 +1,108 @@
+body {
+    background-color: #232323;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    background-image: url("profile.jpg"); /* Add your background image */
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    min-height: 100vh; /* Ensure full viewport height */
+}
+
+.overall-container {
+    width: 600px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for container */
+    padding: 20px; /* Add some padding */
+    border-radius: 10px; /* Rounded corners for container */
+    text-align: center;
+    margin: 20px auto; /* Center the container on larger screens */
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    background-color: steelblue;
+    margin: 0;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 20px 0;
+}
+
+#color-box { /* Styles for the color display box */
+    width: 300px;
+    height: 100px;
+    margin: 20px auto;
+   }
+
+#color-info { /* Container for "Guess the Color" and instructions */
+    text-align: center;
+    margin-bottom: 20px; /* Add some space below */
+}
+
+#color-name { /* Style for the color name */
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#instructions {
+    font-size: 1em;
+}
+
+#stripe {
+    background-color: white;
+    height: 30px;
+    text-align: center;
+    color: black;
+}
+
+
+
+button {
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    height: 100%;
+    font-weight: 700;
+    color: steelblue;
+    letter-spacing: 1px;
+    font-size: inherit;
+    transition: all 0.3s;
+    outline: none;
+}
+
+button:hover {
+    color: white;
+    background-color: steelblue;
+}
+
+
+
+#container {
+    max-width: 100%; /* Make container responsive */
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.square {
+    width: 15%; /* Adjusted for 6 squares */
+    padding-bottom: 15%;
+    margin: 1%;
+    border-radius: 50%;
+    transition: background 0.6s;
+    cursor: pointer;
+}
+
+#game-status {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: steelblue;
+    text-transform: uppercase;
+}
