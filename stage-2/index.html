@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Conference Ticket Generator using React" />
+    <title>Conference Ticket Generator</title>
+    <!-- Add any additional styles or fonts here -->
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      #root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Root element where the React app will be rendered -->
+    <div id="root"></div>
+
+    <!-- Load React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load Babel for JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Your React App Script -->
+    <script type="text/babel">
+      // Import the ConferenceTicketGenerator component
+      const ConferenceTicketGenerator = () => {
+        // State for form fields
+        const [fullName, setFullName] = React.useState("");
+        const [email, setEmail] = React.useState("");
+        const [avatarUrl, setAvatarUrl] = React.useState("");
+        const [errors, setErrors] = React.useState({});
+        const [ticket, setTicket] = React.useState(null);
+
+        // Load saved data from local storage on component mount
+        React.useEffect(() => {
+          const savedData = JSON.parse(localStorage.getItem("ticketFormData"));
+          if (savedData) {
+            setFullName(savedData.fullName);
+            setEmail(savedData.email);
+            setAvatarUrl(savedData.avatarUrl);
+          }
+        }, []);
+
+        // Save data to local storage on change
+        React.useEffect(() => {
+          localStorage.setItem(
+            "ticketFormData",
+            JSON.stringify({ fullName, email, avatarUrl })
+          );
+        }, [fullName, email, avatarUrl]);
+
+        // Validate form fields
+        const validateForm = () => {
+          const newErrors = {};
+          if (!fullName.trim()) newErrors.fullName = "Full Name is required";
+          if (!email || !/\S+@\S+\.\S+/.test(email)) newErrors.email = "Invalid email address";
+          if (!avatarUrl || !/^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i.test(avatarUrl)) {
+            newErrors.avatarUrl = "Invalid image URL";
+          }
+          setErrors(newErrors);
+          return Object.keys(newErrors).length === 0;
+        };
+
+        // Handle form submission
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          if (validateForm()) {
+            setTicket({ fullName, email, avatarUrl });
+          }
+        };
+
+        return (
+          <div style={styles.container}>
+            <h1 style={styles.heading}>Conference Ticket Generator</h1>
+            <form onSubmit={handleSubmit} style={styles.form}>
+              <div style={styles.formGroup}>
+                <label htmlFor="fullName" style={styles.label}>
+                  Full Name:
+                </label>
+                <input
+                  id="fullName"
+                  type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  aria-describedby="fullNameError"
+                  style={styles.input}
+                />
+                {errors.fullName && (
+                  <span id="fullNameError" style={styles.error}>
+                    {errors.fullName}
+                  </span>
+                )}
+              </div>
+              <div style={styles.formGroup}>
+                <label htmlFor="email" style={styles.label}>
+                  Email:
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  aria-describedby="emailError"
+                  style={styles.input}
+                />
+                {errors.email && (
+                  <span id="emailError" style={styles.error}>
+                    {errors.email}
+                  </span>
+                )}
+              </div>
+              <div style={styles.formGroup}>
+                <label htmlFor="avatarUrl" style={styles.label}>
+                  Avatar URL:
+                </label>
+                <input
+                  id="avatarUrl"
+                  type="url"
+                  value={avatarUrl}
+                  onChange={(e) => setAvatarUrl(e.target.value)}
+                  aria-describedby="avatarUrlError"
+                  style={styles.input}
+                />
+                {errors.avatarUrl && (
+                  <span id="avatarUrlError" style={styles.error}>
+                    {errors.avatarUrl}
+                  </span>
+                )}
+              </div>
+              <button type="submit" style={styles.button}>
+                Generate Ticket
+              </button>
+            </form>
+
+            {ticket && (
+              <div style={styles.ticket}>
+                <h2 style={styles.ticketHeading}>Your Conference Ticket</h2>
+                <p style={styles.ticketText}>
+                  <strong>Name:</strong> {ticket.fullName}
+                </p>
+                <p style={styles.ticketText}>
+                  <strong>Email:</strong> {ticket.email}
+                </p>
+                <img
+                  src={ticket.avatarUrl}
+                  alt="Avatar"
+                  style={styles.avatarImage}
+                />
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      // Inline styles for the component
+      const styles = {
+        container: {
+          maxWidth: "600px",
+          margin: "0 auto",
+          padding: "20px",
+          fontFamily: "Arial, sans-serif",
+        },
+        heading: {
+          textAlign: "center",
+          color: "#333",
+        },
+        form: {
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+        },
+        formGroup: {
+          display: "flex",
+          flexDirection: "column",
+          gap: "5px",
+        },
+        label: {
+          fontWeight: "bold",
+        },
+        input: {
+          padding: "10px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+        },
+        error: {
+          color: "red",
+          fontSize: "14px",
+        },
+        button: {
+          padding: "10px",
+          fontSize: "16px",
+          backgroundColor: "#007bff",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        },
+        ticket: {
+          marginTop: "20px",
+          padding: "20px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          textAlign: "center",
+        },
+        ticketHeading: {
+          color: "#333",
+        },
+        ticketText: {
+          fontSize: "18px",
+          margin: "10px 0",
+        },
+        avatarImage: {
+          width: "100px",
+          height: "100px",
+          borderRadius: "50%",
+          marginTop: "10px",
+        },
+      };
+
+      // Render the ConferenceTicketGenerator component
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<ConferenceTicketGenerator />);
+    </script>
+  </body>
+</html>
